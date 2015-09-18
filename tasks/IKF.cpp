@@ -550,7 +550,7 @@ void IKF::writeOutput(IKFFilter & filter)
         _orientation_samples_out.write(orientation_out);
 
         acceleration_out.time = prev_ts;
-        acceleration_out.acceleration = filter.getAttitude()*(acc_body - filter.getAccBias() - filter.getGravityinBody()); // world frame, since RigidBodyAcceleration is defined this way
+        acceleration_out.acceleration = filter.getAttitude().toRotationMatrix()*(acc_body - filter.getAccBias() - filter.getGravityinBody()); // world frame, since RigidBodyAcceleration is defined this way
 //        acceleration_out.acceleration = acc_body - filter.getAccBias() - filter.getGravityinBody(); // body frame
         _acceleration_samples_out.write(acceleration_out);
     }
